@@ -1,3 +1,54 @@
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+var ballRadius = 10;
+var ballX = ballRadius;
+var ballY = canvas.height - ballRadius;
+
+var treeRadius = 15;
+var treeTrunkHeight = 15;
+var treeTrunkWidth = 6;
+var treeX = canvas.width / 2;
+var treeY = canvas.height - treeTrunkHeight;
+
+function drawBall() {
+  ctx.beginPath();
+  ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
+  ctx.fillStyle = "#000000";
+  ctx.fill();
+  ctx.closePath();
+}
+
+function drawTree() {
+  ctx.beginPath();
+  ctx.arc(
+    treeX + treeTrunkWidth / 2,
+    treeY - treeRadius,
+    treeRadius,
+    0,
+    Math.PI * 2
+  );
+  ctx.fillStyle = "#3aeb34";
+  ctx.fill();
+  ctx.closePath();
+  ctx.beginPath();
+  ctx.rect(treeX, treeY, treeTrunkWidth, treeTrunkHeight);
+  ctx.fillStyle = "#996633";
+  ctx.fill();
+  ctx.closePath();
+}
+
+function treeMove() {
+  treeX -= 5;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBall();
+  drawTree();
+  treeMove();
+}
+
 class Player {
   constructor(strength, health) {
     this.strength = strength;
@@ -58,4 +109,5 @@ async function fight(p1, p2) {
 const hero = new Player(15, 100);
 const enemy = new Enemy(10, 100);
 
-fight(hero, enemy);
+//fight(hero, enemy);
+var interval = setInterval(draw, 100);
