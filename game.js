@@ -11,6 +11,8 @@ var treeTrunkWidth = 6;
 var treeX = canvas.width / 2;
 var treeY = canvas.height - treeTrunkHeight;
 
+var noCollision = true;
+
 function drawBall() {
   ctx.beginPath();
   ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
@@ -20,33 +22,42 @@ function drawBall() {
 }
 
 function drawTree() {
-  ctx.beginPath();
-  ctx.arc(
-    treeX + treeTrunkWidth / 2,
-    treeY - treeRadius,
-    treeRadius,
-    0,
-    Math.PI * 2
-  );
-  ctx.fillStyle = "#3aeb34";
-  ctx.fill();
-  ctx.closePath();
-  ctx.beginPath();
-  ctx.rect(treeX, treeY, treeTrunkWidth, treeTrunkHeight);
-  ctx.fillStyle = "#996633";
-  ctx.fill();
-  ctx.closePath();
+  if (noCollision === true) {
+    ctx.beginPath();
+    ctx.arc(
+      treeX + treeTrunkWidth / 2,
+      treeY - treeRadius,
+      treeRadius,
+      0,
+      Math.PI * 2
+    );
+    ctx.fillStyle = "#3aeb34";
+    ctx.fill();
+    ctx.closePath();
+    ctx.beginPath();
+    ctx.rect(treeX, treeY, treeTrunkWidth, treeTrunkHeight);
+    ctx.fillStyle = "#996633";
+    ctx.fill();
+    ctx.closePath();
+  }
 }
 
-function treeMove() {
-  treeX -= 5;
+function moveTree(movespeed) {
+  treeX -= movespeed;
 }
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBall();
   drawTree();
-  treeMove();
+  moveTree(2);
+  collisionDetection();
+}
+
+function collisionDetection() {
+  if (treeX - treeRadius < ballX + ballRadius) {
+    noCollision = false;
+  }
 }
 
 class Player {
@@ -110,4 +121,4 @@ const hero = new Player(15, 100);
 const enemy = new Enemy(10, 100);
 
 //fight(hero, enemy);
-var interval = setInterval(draw, 100);
+var interval = setInterval(draw, 20);
