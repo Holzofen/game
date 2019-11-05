@@ -13,6 +13,7 @@ var treeY = canvas.height - treeTrunkHeight;
 
 var treeAmount = 10;
 var treeSpacing = 100;
+var treeSpeed = 2;
 
 var noCollision = true;
 
@@ -53,15 +54,18 @@ function drawTrees() {
   }
 }
 
-function moveTree(movespeed) {
-  treeX -= movespeed;
+function moveTree(moving) {
+  if (moving === true) {
+    treeX -= treeSpeed;
+  }
+
 }
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBall();
   drawTrees();
-  moveTree(2);
+  moveTree(true);
   collisionDetection();
 }
 
