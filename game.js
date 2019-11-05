@@ -1,62 +1,8 @@
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
-
 var ballRadius = 10;
 var ballX = ballRadius;
 var ballY = canvas.height - ballRadius;
 
-var obstacleAmount = 10;
-var obstacleSpacing = 100;
-var obstacleSpeed = -2;
-var obstacleCounter = 0;
-var firstObstacleX = canvas.width / 2;
-
-
-class Tree {
-  constructor() {
-    this.treeRadius = 15;
-    this.treeTrunkHeight = 15;
-    this.treeTrunkWidth = 6;
-    this.treeX = canvas.width / 2;
-    this.treeY = canvas.height - this.treeTrunkHeight;
-  }
-
-  draw(x) {
-    ctx.beginPath();
-    ctx.arc(
-      this.treeRadius + x,
-      this.treeY - this.treeRadius,
-      this.treeRadius,
-      0,
-      Math.PI * 2
-    );
-    ctx.fillStyle = "#3aeb34";
-    ctx.fill();
-    ctx.closePath();
-    ctx.beginPath();
-    ctx.rect(x + this.treeRadius - this.treeTrunkWidth / 2, this.treeY, this.treeTrunkWidth, this.treeTrunkHeight);
-    ctx.fillStyle = "#996633";
-    ctx.fill();
-    ctx.closePath();  
-  }
-
-  interact(player) {
-    player.addWood(1);
-  }
-
-
-}
-
-
-class EmptyObstacle {
-  draw(y) {
-    
-  }
-}
-
-
 var obstacles = [];
-
 for (i = 0; i < obstacleAmount; i++) {
   obstacles[i] = new Tree();
 }
@@ -81,8 +27,6 @@ function drawBall() {
   ctx.fill();
   ctx.closePath();
 }
-
-
 
 function collisionDetection() {
   if (firstObstacleX + obstacleCounter * obstacleSpacing < ballX + ballRadius) {
@@ -116,9 +60,7 @@ class Enemy {
   }
 }
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}*/
+
 
 
 /*

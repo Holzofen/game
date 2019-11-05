@@ -20,9 +20,14 @@
     <br />
     Wood: <span id="playerWood">0</span>
     <br />
-    <canvas id="myCanvas" width="480" height="120" align="left"></canvas>
+    <canvas id="myCanvas" width="480" height="120"></canvas>
     <br />
 <!--    Log: <span id="log"></span>-->
+    <script>
+      var canvas = document.getElementById("myCanvas");
+      var ctx = canvas.getContext("2d");
+    </script>
+    <script language="javascript" type="text/javascript" src="obstacles.js"></script>
     <script language="javascript" type="text/javascript" src="game.js"></script>
   </body>
 </html>
