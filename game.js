@@ -14,9 +14,13 @@ var treeY = canvas.height - treeTrunkHeight;
 */
 
 var treeAmount = 10;
-var treeSpacing = 100;
-var treeSpeed = 2;
-var obstacles = []
+var obstacleSpacing = 100;
+var obstacleSpeed = -2;
+//var obstacles = []
+var firstObstacleX = canvas.width / 2;
+var obstacleCounter = 0;
+
+
 
 
 var noCollision = true;
@@ -27,6 +31,12 @@ function drawBall() {
   ctx.fillStyle = "#000000";
   ctx.fill();
   ctx.closePath();
+}
+
+class EmptyObstacle {
+  draw(y) {
+    
+  }
 }
 
 class Tree {
@@ -60,44 +70,17 @@ class Tree {
 
 }
 
-T1 = new Tree()
 
-/*
-function drawTree(x) {
-  if (noCollision === true) {
-    ctx.beginPath();
-    ctx.arc(
-      x + treeTrunkWidth / 2,
-      treeY - treeRadius,
-      treeRadius,
-      0,
-      Math.PI * 2
-    );
-    ctx.fillStyle = "#3aeb34";
-    ctx.fill();
-    ctx.closePath();
-    ctx.beginPath();
-    ctx.rect(x, treeY, treeTrunkWidth, treeTrunkHeight);
-    ctx.fillStyle = "#996633";
-    ctx.fill();
-    ctx.closePath();
-  }
-}
-*/
+T1 = new Tree();
+T2 = new Tree();
+E1 = new EmptyObstacle();
 
-/*
-function drawTrees() {
-  let treeInternX = 0;
-  for (i = 0; i < treeAmount; i++) {
-    treeInternX = treeSpacing * i;
-    drawTree(treeInternX + treeX);
-  }
-}
-*/
+var obstacles = [T1, T2];
+
 
 function moveTreeIs(moving) {
   if (moving === true) {
-    treeX -= treeSpeed;
+    firstObstacleX += obstacleSpeed;
   }
 
 }
@@ -105,17 +88,20 @@ function moveTreeIs(moving) {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBall();
-  T1.draw(100);
+  for (i = 0; i < 2; i++) {
+    obstacles[i].draw(firstObstacleX + i * obstacleSpacing);
+  }
   moveTreeIs(true);
   collisionDetection();
 }
 
 function collisionDetection() {
-  if (treeX - treeRadius < ballX + ballRadius) {
-    noCollision = false;
+  if (firstObstacleX - obstacleCounter * obstacleSpacing < ballX + ballRadius) {
+    obstacles[obstacleCounter] = E1;
+    obstacleCounter += 1;
   }
 }
-
+/*
 class Player {
   constructor(strength, health) {
     this.strength = strength;
@@ -176,5 +162,5 @@ async function fight(p1, p2) {
 const hero = new Player(15, 100);
 const enemy = new Enemy(10, 100);
 
-//fight(hero, enemy);
+//fight(hero, enemy);*/
 var interval = setInterval(draw, 20);
