@@ -11,6 +11,9 @@ var treeTrunkWidth = 6;
 var treeX = canvas.width / 2;
 var treeY = canvas.height - treeTrunkHeight;
 
+var treeAmount = 10;
+var treeSpacing = 100;
+
 var noCollision = true;
 
 function drawBall() {
@@ -21,11 +24,11 @@ function drawBall() {
   ctx.closePath();
 }
 
-function drawTree() {
+function drawTree(x) {
   if (noCollision === true) {
     ctx.beginPath();
     ctx.arc(
-      treeX + treeTrunkWidth / 2,
+      x + treeTrunkWidth / 2,
       treeY - treeRadius,
       treeRadius,
       0,
@@ -35,10 +38,18 @@ function drawTree() {
     ctx.fill();
     ctx.closePath();
     ctx.beginPath();
-    ctx.rect(treeX, treeY, treeTrunkWidth, treeTrunkHeight);
+    ctx.rect(x, treeY, treeTrunkWidth, treeTrunkHeight);
     ctx.fillStyle = "#996633";
     ctx.fill();
     ctx.closePath();
+  }
+}
+
+function drawTrees() {
+  let treeInternX = 0;
+  for (i = 0; i < treeAmount; i++) {
+    treeInternX = treeSpacing * i;
+    drawTree(treeInternX + treeX);
   }
 }
 
@@ -49,7 +60,7 @@ function moveTree(movespeed) {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBall();
-  drawTree();
+  drawTrees();
   moveTree(2);
   collisionDetection();
 }
