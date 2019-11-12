@@ -34,7 +34,9 @@ class Tree {
   }
 
   interact(player) {
-    player.addWood(1);
+    if (player.hasTool(1)) {
+      player.addWood(1);
+    }  
   }
 
 }

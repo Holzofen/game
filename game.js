@@ -7,17 +7,34 @@ for (i = 0; i < obstacleAmount; i++) {
   obstacles[i] = new Tree();
 }
 
-E1 = new EmptyObstacle();
 
-function log(message) {
-  document.getElementById("log").innerHTML += message;
+class Player {
+  constructor() {
+    this.name = "Player";
+    this.wood = 0;
+    this.tools = {1: true, 2: false};
+    this.toolNames = ["axe", "pickaxe"];
+  }
+  //todo: ändern zu addResource(resourceId, amount)
+  addWood(amount) {
+    this.wood += amount;
+    document.getElementById("playerWood").innerHTML = P1.wood;
+  }
+  hasTool(toolId) {
+    if (this.tools[toolId] == true) {
+      return true;
+    }
+    else {
+      return false
+    }
+  }
+
 }
 
 function moveTreeIs(moving) {
   if (moving === true) {
     firstObstacleX += obstacleSpeed;
   }
-
 }
 
 function drawBall() {
@@ -36,17 +53,30 @@ function collisionDetection() {
   }
 }
 
-class Player {
-  constructor() {
-    this.name = "Player";
-    this.wood = 0;
-  }
-  addWood(amount) {
-    this.wood += amount;
-    document.getElementById("playerWood").innerHTML = P1.wood;
-  }
-
+function log(message) {
+  document.getElementById("log").innerHTML += message;
 }
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBall();
+  for (i = 0; i < obstacleAmount; i++) {
+    obstacles[i].draw(firstObstacleX + i * obstacleSpacing);
+  }
+  moveTreeIs(true);
+  collisionDetection();
+  /*
+  if (obstacleCounter > (obstacleAmount - 5)) {
+    break;
+  }*/
+}
+
+P1 = new Player();
+E1 = new EmptyObstacle();
+
+var interval = setInterval(draw, 20);
+
+
 
 /*
 class Enemy {
@@ -87,18 +117,3 @@ async function fight(p1, p2) {
 }
 
 */
-
-P1 = new Player();
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawBall();
-  for (i = 0; i < obstacleAmount; i++) {
-    obstacles[i].draw(firstObstacleX + i * obstacleSpacing);
-  }
-  moveTreeIs(true);
-  collisionDetection();
-}
-
-
-var interval = setInterval(draw, 40);
