@@ -1,8 +1,7 @@
 var obstacleAmount = 10;
 var obstacleSpacing = 100;
-var obstacleSpeed = -2;
-var obstacleCounter = 0;
 var firstObstacleX = canvas.width / 2;
+
 
 
 class Tree {
@@ -43,7 +42,7 @@ class Tree {
 
 // empty obstacle replaces obstacle if collision is detected
 class EmptyObstacle {
-  draw(y) {
+  draw() {
     
   }
 }

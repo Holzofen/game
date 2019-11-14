@@ -3,9 +3,9 @@ var ballX = ballRadius;
 var ballY = canvas.height - ballRadius;
 
 var obstacles = [];
-for (i = 0; i < obstacleAmount; i++) {
-  obstacles[i] = new Tree();
-}
+var obstacleCounter = 0;
+var adventureIs = true;
+var obstacleSpeed = -5;
 
 
 class Player {
@@ -51,30 +51,51 @@ function collisionDetection() {
     obstacles[obstacleCounter] = E1;
     obstacleCounter += 1;
   }
+  if (obstacleCounter === 10) {
+    adventureIs = false;
+  }
 }
 
 function log(message) {
   document.getElementById("log").innerHTML += message;
 }
 
-function draw() {
+function draw() { 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if (adventureIs === false) {
+    return false;
+  }       
   drawBall();
   for (i = 0; i < obstacleAmount; i++) {
     obstacles[i].draw(firstObstacleX + i * obstacleSpacing);
   }
   moveTreeIs(true);
   collisionDetection();
-  /*
-  if (obstacleCounter > (obstacleAmount - 5)) {
-    break;
-  }*/
 }
+
+
+function resetValues() {
+  obstacles = [];
+  for (i = 0; i < obstacleAmount; i++) {
+    obstacles[i] = new Tree();
+  }
+  obstacleCounter = 0;
+  adventureIs = true;
+  firstObstacleX = canvas.width / 2;
+  obstacleSpeed = -5;
+  console.log(obstacleSpeed);
+  console.log(firstObstacleX);
+
+}
+
 
 P1 = new Player();
 E1 = new EmptyObstacle();
 
-var interval = setInterval(draw, 20);
+function startAdventure() {
+  resetValues();
+  interval = setInterval(draw, 20);
+}
 
 
 
