@@ -2,8 +2,6 @@ var obstacleAmount = 10;
 var obstacleSpacing = 100;
 var firstObstacleX = canvas.width / 2;
 
-
-
 class Tree {
   constructor() {
     this.treeRadius = 15;
@@ -26,23 +24,25 @@ class Tree {
     ctx.fill();
     ctx.closePath();
     ctx.beginPath();
-    ctx.rect(x + this.treeRadius - this.treeTrunkWidth / 2, this.treeY, this.treeTrunkWidth, this.treeTrunkHeight);
+    ctx.rect(
+      x + this.treeRadius - this.treeTrunkWidth / 2,
+      this.treeY,
+      this.treeTrunkWidth,
+      this.treeTrunkHeight
+    );
     ctx.fillStyle = "#996633";
     ctx.fill();
-    ctx.closePath();  
+    ctx.closePath();
   }
 
   interact(player) {
     if (player.hasTool(1)) {
       player.addWood(1);
-    }  
+    }
   }
-
 }
 
 // empty obstacle replaces obstacle if collision is detected
 class EmptyObstacle {
-  draw() {
-    
-  }
+  draw() {}
 }

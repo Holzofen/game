@@ -7,12 +7,11 @@ var obstacleCounter = 0;
 var adventureIs = true;
 var obstacleSpeed = -5;
 
-
 class Player {
   constructor() {
     this.name = "Player";
     this.wood = 0;
-    this.tools = {1: true, 2: false};
+    this.tools = { 1: true, 2: false };
     this.toolNames = ["axe", "pickaxe"];
   }
   //todo: ändern zu addResource(resourceId, amount)
@@ -23,12 +22,10 @@ class Player {
   hasTool(toolId) {
     if (this.tools[toolId] == true) {
       return true;
-    }
-    else {
-      return false
+    } else {
+      return false;
     }
   }
-
 }
 
 function moveObstacles(moving) {
@@ -51,26 +48,23 @@ function collisionDetection() {
     obstacles[obstacleCounter] = E1;
     obstacleCounter += 1;
   }
-  if (obstacleCounter === 10) {
-    adventureIs = false;
-  }
 }
 
 function log(message) {
   document.getElementById("log").innerHTML += message;
 }
 
-function draw() { 
+function draw() {
   clearCanvas();
-  if (adventureIs === false) {
+  if (obstacleCounter === 10) {
+    clearInterval(interval);
     return false;
-  }       
+  }
   drawBall();
   drawObstacles();
   moveObstacles(true);
   collisionDetection();
 }
-
 
 function drawObstacles() {
   for (i = 0; i < obstacleAmount; i++) {
@@ -93,7 +87,6 @@ function resetValues() {
   obstacleSpeed = -5;
 }
 
-
 P1 = new Player();
 E1 = new EmptyObstacle();
 
@@ -101,8 +94,6 @@ function startAdventure() {
   resetValues();
   interval = setInterval(draw, 20);
 }
-
-
 
 /*
 
