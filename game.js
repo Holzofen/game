@@ -31,7 +31,7 @@ class Player {
 
 }
 
-function moveTreeIs(moving) {
+function moveObstacles(moving) {
   if (moving === true) {
     firstObstacleX += obstacleSpeed;
   }
@@ -61,18 +61,26 @@ function log(message) {
 }
 
 function draw() { 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  clearCanvas();
   if (adventureIs === false) {
     return false;
   }       
   drawBall();
-  for (i = 0; i < obstacleAmount; i++) {
-    obstacles[i].draw(firstObstacleX + i * obstacleSpacing);
-  }
-  moveTreeIs(true);
+  drawObstacles();
+  moveObstacles(true);
   collisionDetection();
 }
 
+
+function drawObstacles() {
+  for (i = 0; i < obstacleAmount; i++) {
+    obstacles[i].draw(firstObstacleX + i * obstacleSpacing);
+  }
+}
+
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
 
 function resetValues() {
   obstacles = [];
@@ -83,9 +91,6 @@ function resetValues() {
   adventureIs = true;
   firstObstacleX = canvas.width / 2;
   obstacleSpeed = -5;
-  console.log(obstacleSpeed);
-  console.log(firstObstacleX);
-
 }
 
 
@@ -96,21 +101,6 @@ function startAdventure() {
   resetValues();
   interval = setInterval(draw, 20);
 }
-
-
-
-/*
-class Enemy {
-  constructor(strength, health) {
-    this.strength = strength;
-    this.health = health;
-    this.name = "Monster";
-  }
-  attack(enemy) {
-    enemy.health -= this.strength;
-  }
-}
-
 
 
 
